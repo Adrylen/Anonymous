@@ -4,8 +4,7 @@ from time import sleep
 import begin
 import sys
 import os
-from ftp.ftpserver import cdTree
-
+from ftp.ftpserver import cdTree, getPath
 from utils.Snapshot import Snapshot
 
 
@@ -19,9 +18,10 @@ def main(dirname, path, host, account, passwd, folder, frequency=15, depth=6, de
 	ftp.login(account,passwd)
 
 	for file in snapshot.data:
-		cdTree(ftp, folder + "/" + file.path)
-		ftp_command = "STOR " + folder + "/" + file.path
-		ftp.storbinary(ftp_command, open(file.path))
+		if(not(file.isDir)):
+			cdTree(ftp, "/" + folder + "/" + getPath(file.path))
+			ftp_command = "STOR " + "/" + folder + "/" + file.path
+			ftp.storbinary(ftp_command, open(file.path, "rb"))
 
 	while True:
 		s2 = Snapshot(dirname)
@@ -29,9 +29,10 @@ def main(dirname, path, host, account, passwd, folder, frequency=15, depth=6, de
 
 		# print(len(snapshot.diff(s2)))
 		for diff in snapshot.diff(s2):
-			cdTree(ftp, folder + "/" + diff.path)
-			ftp_command = "STOR " + folder + "/" + diff.path
-			ftp.storbinary(ftp_command, open(diff.path))
+			if(not(diff.isDir)):
+				cdTree(ftp, "/" + folder + "/" + getPath(diff.path))
+				ftp_command = "STOR " + "/" + folder + "/" + diff.path
+				ftp.storbinary(ftp_command, open(diff.path, "rb"))
 			print(str(diff))
 
 		snapshot = s2

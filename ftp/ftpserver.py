@@ -3,14 +3,15 @@ import ftplib
 
 
 
-
+def getPath(path):
+	return "/".join(path.split("/")[:-1])
 
 def cdTree(ftp, currentDir):
 	if currentDir != "":
 		try:
 			ftp.cwd(currentDir)
 		except ftplib.error_perm as e:
-			print("Probleme: " + str(e))
+			#print("Probleme: " + str(e))
 			cdTree(ftp, "/".join(currentDir.split("/")[:-1]))
 			ftp.mkd(currentDir)
 			ftp.cwd(currentDir)
