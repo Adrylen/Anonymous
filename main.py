@@ -17,8 +17,9 @@ def main(dirname, path, host, account, passwd, folder, frequency=15, depth=6, de
 		s2 = Snapshot(dirname)
 		s2.scan(int(depth))
 
+		# print(len(snapshot.diff(s2)))
 		for diff in snapshot.diff(s2):
 			print(str(diff))
 
-		snapshot.scan(int(depth))
-		sleep(frequency)
+		snapshot = s2
+		sleep(int(frequency))

@@ -28,8 +28,6 @@ class Snapshot:
 			self.data.append(File(self.path))
 		return self
 
-
-
 	def diff(self, other):
 		return set(self.data).symmetric_difference(set(other.data))
 
