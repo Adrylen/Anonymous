@@ -7,6 +7,7 @@ import begin
 import sys
 import os
 
+from ftp.ftpserver import cdTree, getPath
 from utils.Snapshot import Snapshot
 
 
@@ -19,13 +20,34 @@ def main(dirname, path, host, account, passwd, folder, frequency=15, depth=6, de
 	snapshot = Snapshot(dirname)
 	snapshot.scan(int(depth))
 
+	ftp = FTP(host)
+	ftp.login(account, passwd)
+
+	for file in snapshot.data:
+		if not file.isDir:
+			cdTree(ftp, "/" + folder + "/" + getPath(file.path))
+			ftp_command = "STOR " + "/" + folder + "/" + file.path
+			ftp.storbinary(ftp_command, open(file.path, "rb"))
+
 	while True:
 		s2 = Snapshot(dirname)
 		s2.scan(int(depth))
 
-		# print(len(snapshot.diff(s2))
 		for diff in snapshot.diff(s2):
-			main_logger.info(str(diff))
+			if not diff[1].isDir:
+				if diff[0] == "update" or diff[0] == "add":
+					cdTree(ftp, "/" + folder + "/" + getPath(diff.path))
+					ftp_command = "STOR " + "/" + folder + "/" + diff.path
+					ftp.storbinary(ftp_command, open(diff.path, "rb"))
+				else:
+					# TODO REMOVE
+					pass
+			if debug:
+				main_logger.info(str(diff))
+
+			journal = open(path, "a")
+			journal.write(str(diff))
+			journal.close()
 
 		snapshot = s2
 		sleep(int(frequency))
