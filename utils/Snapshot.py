@@ -19,7 +19,7 @@ class Snapshot:
 				path = root.replace(self.path, "").split(os.path.sep)
 				if path[-1] == "":
 					path = []
-				if len(path) <= level:
+				if len(path)-1 <= level:
 					self.data.append(File(root))
 				if len(path) < level:
 					for file in files:
@@ -27,6 +27,8 @@ class Snapshot:
 		else:
 			self.data.append(File(self.path))
 		return self
+
+
 
 	def diff(self, other):
 		return set(self.data).symmetric_difference(set(other.data))
