@@ -36,9 +36,9 @@ def main(dirname, path, host, account, passwd, folder, frequency=15, depth=6, de
 		for diff in snapshot.diff(s2):
 			if not diff[1].isDir:
 				if diff[0] == "update" or diff[0] == "add":
-					cdTree(ftp, "/" + folder + "/" + getPath(diff.path))
-					ftp_command = "STOR " + "/" + folder + "/" + diff.path
-					ftp.storbinary(ftp_command, open(diff.path, "rb"))
+					cdTree(ftp, "/" + folder + "/" + getPath(diff[1].path))
+					ftp_command = "STOR " + "/" + folder + "/" + diff[1].path
+					ftp.storbinary(ftp_command, open(diff[1].path, "rb"))
 				else:
 					# TODO REMOVE
 					pass
