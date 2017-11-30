@@ -1,0 +1,7 @@
+['update', <utils.File.File object at 0x10c230c50>, <utils.File.File object at 0x10c230f98>]
+['update', <utils.File.File object at 0x10e0fbd68>, <utils.File.File object at 0x10e0eb2b0>]
+['remove', <utils.File.File object at 0x10e10a0b8>]
+['update', <utils.File.File object at 0x10e0fbfd0>, <utils.File.File object at 0x10e0e1a58>]
+['remove', <utils.File.File object at 0x10e0e1c50>]
+['update', <utils.File.File object at 0x10ac59f28>, <utils.File.File object at 0x10ac41f28>]
+['remove', <utils.File.File object at 0x10ac59cc0>]

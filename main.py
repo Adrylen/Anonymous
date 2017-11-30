@@ -40,13 +40,15 @@ def main(dirname, path, host, account, passwd, folder, frequency=15, depth=6, de
 					ftp_command = "STOR " + "/" + folder + "/" + diff[1].path
 					ftp.storbinary(ftp_command, open(diff[1].path, "rb"))
 				else:
-					# TODO REMOVE
-					pass
+					ftp.delete("/" + folder + "/" + diff[1].path)
+			else:
+				if diff[0] == "remove":
+					ftp.rmd("/" + folder + "/" + diff[1].path)
 			if debug:
 				main_logger.info(str(diff))
 
 			journal = open(path, "a")
-			journal.write(str(diff))
+			journal.write(str(diff)+"\n")
 			journal.close()
 
 		snapshot = s2
