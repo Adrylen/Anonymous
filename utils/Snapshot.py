@@ -1,7 +1,5 @@
 import os
 import sys
-import logging
-import logging.config
 
 from utils.File import File
 
@@ -10,8 +8,6 @@ class Snapshot:
 	def __init__(self, path):
 		self.data = []
 		self.path = path
-		logging.config.fileConfig(os.path.join(os.getcwd(), "log.conf"))
-		self.main_logger = logging.getLogger("root")
 
 	def scan(self, level):
 		if level != 0:
@@ -29,7 +25,22 @@ class Snapshot:
 		return self
 
 	def diff(self, other):
-		return set(self.data).symmetric_difference(set(other.data))
+		result = []
+		updates = []
+		diffs = set(self.data).symmetric_difference(set(other.data))
+		for el in diffs:
+			update = [file for file in diffs if file.path == el.path and file not in updates]
+			if len(update) > 1:
+				tmp = ["update"]
+				for f in update:
+					updates.append(f)
+					tmp.append(f)
+				result.append(tmp)
+			elif el in self.data and el not in updates:
+				result.append(["remove", el])
+			elif el in other.data and el not in updates:
+				result.append(["add", el])
+		return result
 
 	def print(self):
 		for d in self.data:

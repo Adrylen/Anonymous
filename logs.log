@@ -1576,3 +1576,15 @@ INFO : Path=..\TexasHoldEm\card, Name=card, size=4096, date=2017-11-23 13:47:09
 INFO : Path=..\TexasHoldEm\card\__pycache__, Name=__pycache__, size=4096, date=2017-11-23 13:51:17
 INFO : Path=..\TexasHoldEm\game, Name=game, size=4096, date=2017-11-09 21:06:25
 INFO : Path=..\TexasHoldEm\game\__pycache__, Name=__pycache__, size=4096, date=2017-11-09 21:06:26
+INFO : ['update', <utils.File.File object at 0x0000019FF084AB70>, <utils.File.File object at 0x0000019FF084AE48>]
+INFO : ['update', <utils.File.File object at 0x0000019FF084AEB8>, <utils.File.File object at 0x0000019FF084AE80>]
+INFO : ['add', <utils.File.File object at 0x0000019FF0866080>]
+INFO : ['update', <utils.File.File object at 0x0000019FF084AE80>, <utils.File.File object at 0x0000019FF084AEB8>]
+INFO : ['remove', <utils.File.File object at 0x0000019FF084AE48>]
+INFO : ['update', <utils.File.File object at 0x0000019FF084AEB8>, <utils.File.File object at 0x0000019FF084AE80>]
+INFO : ['add', <utils.File.File object at 0x0000019FF0866080>]
+INFO : ['update', <utils.File.File object at 0x0000019FF084AE80>, <utils.File.File object at 0x0000019FF084AEB8>]
+INFO : ['add', <utils.File.File object at 0x0000019FF084AB70>]
+INFO : ['update', <utils.File.File object at 0x0000019FF0866048>, <utils.File.File object at 0x0000019FF0866080>]
+INFO : ['update', <utils.File.File object at 0x0000019FF084AEB8>, <utils.File.File object at 0x0000019FF084AE80>]
+INFO : ['remove', <utils.File.File object at 0x0000019FF084AB70>]
