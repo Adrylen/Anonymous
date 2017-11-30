@@ -1,6 +1,6 @@
 from ftplib import FTP
 import ftplib
-
+import traceback
 
 
 def getPath(path):
@@ -15,6 +15,20 @@ def cdTree(ftp, currentDir):
 			cdTree(ftp, "/".join(currentDir.split("/")[:-1]))
 			ftp.mkd(currentDir)
 			ftp.cwd(currentDir)
+
+def removeDirectory(ftp,path):
+	try:
+		dirs=[]
+		files=[]
+		ftp.retrlines("NLST",files.append)
+		ftp.dir(dirs.append)
+		for file in files:
+			ftp.delete(file)
+		for dir in dirs:
+			removeDirectory(ftp, path+"/"+dir)
+		ftp.rmd(path)
+	except ftplib.error_perm as e:
+		print(str(traceback.format_exc()))
 
 def test():
 	ftp = FTP('localhost')
